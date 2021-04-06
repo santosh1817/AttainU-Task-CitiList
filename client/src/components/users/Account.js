@@ -29,10 +29,11 @@ class Account extends React.Component{
             
             <div>
                 <h2>Welcome  {this.state.user.username}</h2>
-                <h3>Email-{this.state.user.email}</h3>
-                <h3>First Name-{this.state.user.firstName}</h3>
-                <h3>Last Name-{this.state.user.lastName}</h3>
-                <h3>Phone Number-{this.state.user.phoneNumber}</h3>
+                <p> You are successfully logged in </p>
+                <p> Below are your email & username </p>
+                <h3>Email</h3><p>{this.state.user.email}</p>
+                <h3>Username</h3><p>{this.state.user.username}</p>
+              
                 <br/>
 
                 <Link to={`/users/edit/${this.state.user._id}`}>edit user details </Link>

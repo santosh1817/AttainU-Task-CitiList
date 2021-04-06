@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import data from './cities.json'
 class Register extends React.Component
 {
     constructor()
@@ -8,15 +9,19 @@ class Register extends React.Component
         this.state={
             username: '', 
             email: '',
-            firstName:'',
-            lastName:'',
-            phoneNumber:'',
             password:'',
-            conformpassword:'',
-            notice:''
+            cities:[],
+            city:''
 
 
         }
+    }
+
+    componentDidMount(){
+        this.setState(()=>({
+            cities:data
+        }))
+       
     }
     handleChange = (e) => {
         e.persist() 
@@ -27,40 +32,27 @@ class Register extends React.Component
 
     handleSubmit = (e) => {
         e.preventDefault()
+        console.log(this.state.cities)
         const formData = {
             username: this.state.username,
             email: this.state.email,
-            firstName:this.state.firstName,
-            lastName:this.state.lastName,
-            phoneNumber:this.state.phoneNumber,
             password: this.state.password
         }
-        if(this.state.phoneNumber.length!==10){
-            this.setState(()=>({
-                notice:'phone number should be 10 digits'
-            }))
-            return false
-        }
-        if(this.state.password===this.state.conformpassword)
-        {
-            axios.post('http://localhost:3005/users/register', formData)
-            .then(response => {
-                if(response.data.errors) {
-                    this.setState(() => ({
-                        errors: response.data.errors
-                    }))
-                   
-                } else {
-                // programmatically change from one to another component
-                    this.props.history.push('/users/login')
-                }   
-            })
-        }
-        else{
-            this.setState(()=>({
-                notice:'passwords didnot match'
-            }))
-        }
+        
+    
+        axios.post('http://localhost:3005/users/register', formData)
+        .then(response => {
+            if(response.data.errors) {
+                this.setState(() => ({
+                    errors: response.data.errors
+                }))
+                
+            } else {
+            // programmatically change from one to another component
+                this.props.history.push('/users/login')
+            }   
+        })
+    
         
     }
     
@@ -101,47 +93,28 @@ class Register extends React.Component
                         
                     </div>
 
-                    <div className="form-group">
-                        <label>
-                            First Name
-                            <input type="text"
-                                name="firstName"
-                                value={this.state.firstName}
-                                onChange={this.handleChange}
-                                className="form-control"
-                                placeholder="Enter first name"
-                            />
-                        </label>
-                        
-                    </div>
+                  
+
+                    
 
                     <div className="form-group">
                         <label>
-                            Last Name
-                            <input type="text"
-                                name="lastName"
-                                value={this.state.lastName}
-                                onChange={this.handleChange}
-                                className="form-control"
-                                placeholder="Enter last name"
-                            />
+                            Select City
+                            <select name="city"   value={this.state.city}   onChange={this.handleChange} className="form-control">
+                                <option value="">Select</option>
+                                {
+                                    this.state.cities.map((city)=>{
+                                    return <option key={city.id}
+                                    value={city.id}>{city.name}</option>
+                                })}
+                            </select>
+
                         </label>
-                        
+                    
+                  
                     </div>
 
-                    <div className="form-group">
-                        <label>
-                            Phone Number
-                            <input type="text"
-                                name="phoneNumber"
-                                value={this.state.phoneNumber}
-                                onChange={this.handleChange}
-                                className="form-control"
-                                placeholder="enter 10 digit number"
-                            />
-                        </label>
-                        
-                    </div>
+                    
 
                     <div className="form-group">
                         <label>
@@ -156,20 +129,8 @@ class Register extends React.Component
                         </label>
                         
                     </div>
-                    <div className="form-group">
-                        <label>
-                           Conform Password
-                            <input type="password"
-                                   name="conformpassword"
-                                   value={this.state.conformpassword}
-                                   onChange={this.handleChange}
-                                   className="form-control"
-                                   placeholder="Enter  conform password"
-                            />
-                        </label>
-                        
-                    </div>
-                    {this.state.notice && <p className="text text-danger"> {this.state.notice} </p>}
+                    
+                   
 
                     <input type="submit" className="btn btn-primary" />
                    

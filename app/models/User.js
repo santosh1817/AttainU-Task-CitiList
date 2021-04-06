@@ -16,24 +16,14 @@ const userSchema=new Schema({
         required:true,
         unique:true
     },
-    firstName:{
-        type:String,
-        required:true
-    },
-    lastName:{
-        type:String,
-        required:true
-    },
-    phoneNumber:{
-        type:Number,
-        required:true
-
-    },
     password:{
         type:String,
         required:true,
         minlength:5,
         maxlength:128
+    },
+    city:{
+        type:String
     },
     tokens:[{
         token:{

@@ -1,11 +1,11 @@
 import React from 'react';
 import {BrowserRouter,Link,Route,Switch} from 'react-router-dom'
-import Home from './components/Home'
+import Home from './components/home/Home'
 import Register from './components/users/Register'
 import Login from './components/users/Login'
 import Account from './components/users/Account'
 import axios from 'axios'
-//import City from './components/city/City'
+
 
 import UserUpdate from './components/users/Edit'
 
@@ -49,7 +49,7 @@ class App extends React.Component{
               { this.state.isAuthenticated ? (
                 <React.Fragment>
                 <li><Link to="/users/logout" className="nav-item nav-link" >Logout </Link></li>
-                <li><Link to="/city-list" className="nav-item nav-link" >Logout </Link></li>
+                
               </React.Fragment>
               ) : (
                 <React.Fragment>

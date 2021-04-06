@@ -5,9 +5,8 @@ class UserUpdate extends React.Component{
     constructor(props) {
         super(props) 
         this.state = {
-                firstName:'',
-                lastName:'',
-                phoneNumber:'',
+                username:'',
+               
                 notice:''
         
         }
@@ -25,16 +24,10 @@ class UserUpdate extends React.Component{
         e.preventDefault()
         const formData = {
             
-            firstName:this.state.firstName,
-            lastName:this.state.lastName,
-            phoneNumber:this.state.phoneNumber
+            username:this.state.username,
+            
         }
-        if(this.state.phoneNumber.length!==10){
-            this.setState(()=>({
-                notice:'phone number should be 10 digits'
-            }))
-            return false
-        }
+       
         
         const id=this.props.match.params.id
 
@@ -64,51 +57,25 @@ class UserUpdate extends React.Component{
             <div className="row">
             <div className="col-md-6 offset-3">
 
-                <h2>Edit User Details </h2>
+                <h2>Edit username </h2>
                 
                 <form onSubmit={this.handleSubmit}>
 
                     <div className="form-group">
                         <label>
-                            First Name
+                            Username
                             <input type="text"
-                                name="firstName"
-                                value={this.state.firstName}
+                                name="username"
+                                value={this.state.username}
                                 onChange={this.handleChange}
                                 className="form-control"
-                                placeholder="update first name"
+                                placeholder="update username"
                             />
                         </label>
                         
                     </div>
 
-                    <div className="form-group">
-                        <label>
-                            Last Name
-                            <input type="text"
-                                name="lastName"
-                                value={this.state.lastName}
-                                onChange={this.handleChange}
-                                className="form-control"
-                                placeholder="update last name"
-                            />
-                        </label>
-                        
-                    </div>
-
-                    <div className="form-group">
-                        <label>
-                            Phone Number
-                            <input type="text"
-                                name="phoneNumber"
-                                value={this.state.phoneNumber}
-                                onChange={this.handleChange}
-                                className="form-control"
-                                placeholder="update phone number"
-                            />
-                        </label>
-                        
-                    </div>
+                   
                     {this.state.notice && <p> { this.state.notice } </p>}
                     <input type="submit" className="btn btn-primary" />
                    
